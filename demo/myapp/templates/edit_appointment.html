@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Appointment
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Edit Appointment</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Render the form fields -->
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
+    <a href="{% url 'appointment' %}" class="btn btn-secondary">Cancel</a>
+
+    <!-- Delete Button -->
+    <form method="POST" action="{% url 'delete_appointment' appointment.id %}" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Delete Appointment</button>
+    </form>
+</div>
+{% endblock %}

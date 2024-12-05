@@ -1,0 +1,52 @@
+<!-- templates/appointments/appointment_list.html -->
+{% extends "base.html" %}
+
+{% block title %}
+Appointments
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1 class="text-center">All Appointments</h1>
+        
+        <!-- Search Form -->
+        <form method="GET" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search by Barber or Service" value="{{ query }}">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Barber</th>
+                    <th>Service</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.barber.name }}</td>
+                        <td>{{ appointment.service.name }}</td>
+                        <td>{{ appointment.date }}</td>
+                        <td>{{ appointment.time }}</td>
+                        <td>
+                            <a href="{% url 'edit_appointment' appointment.id %}" class="btn btn-warning">Edit</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">No appointments available.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
